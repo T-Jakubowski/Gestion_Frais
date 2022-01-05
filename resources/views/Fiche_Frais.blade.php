@@ -17,16 +17,30 @@ use App\Controllers\FicheFraisController;
         </div>
     </div>
 <br>
+
+<select id="monselect">
+    <?php foreach($desFiches as $date){ ?>
+  <option value="valeur1"><?php echo $date->Date ?></option>
+    <?php } ?>
+</select>
+
+<select id="monselect">
+    <?php foreach($desIdentifiant as $identifiant){ ?>
+  <option value="valeur1"><?php echo $identifiant ?></option>
+    <?php } ?>
+</select>
+
 <div><h3>Fiche </h3></div>
 <div><h3>Frais forfait</h3></div>
 
-<table id="tableLigne" class="table table-striped table-hover table-Secondary .table-responsive" >
+<table id="tableFiche" class="table table-striped table-hover table-Secondary .table-responsive" >
     <thead>
     <tr>
         <th>Km</th>
         <th>Repas</th>
         <th>Nuite</th>
-        <th>Edit/Delete</th>
+        <th>Etat</th>
+        <th>Edit</th>
     </tr>
     </thead>
     <tbody>
@@ -35,14 +49,14 @@ use App\Controllers\FicheFraisController;
                 <td><?php echo $ficheFrais->Km; ?></td>
                 <td><?php echo $ficheFrais->Repas;?></td>
                 <td><?php echo $ficheFrais->Nuite;?></td>
-                <td><button  type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editLigneModal"><img class="fit-picture" src="/img/edit_black_24dp.svg" alt="edit"></button>
-                    <button  type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteLigneModal"><img class="fit-picture" src="/img/delete_black_24dp.svg" alt="delete"></button></td>
+                <td><?php echo $ficheFrais->Etat;?></td>
+                <td><button  type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#editFicheModal"><img class="fit-picture" src="/img/edit_black_24dp.svg" alt="edit"></button>
             </tr>
     </tbody>
 </table>
 
 
-<div><h3>Frais forfait</h3></div>
+<div><h3>Frais hors-forfait</h3></div>
 
 <table id="tableLigne" class="table table-striped table-hover table-Secondary .table-responsive" >
     <thead>
@@ -72,17 +86,44 @@ use App\Controllers\FicheFraisController;
     </tbody>
 </table>
 
+<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Valider</button>
 
 
-
-
-
-
-
-
-
-
-
+<!-- Modal edit Fiche-->
+<div class="modal fade" id="editFicheModal" tabindex="-1" aria-labelledby="editFicheModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createFicheModalLabel">Edit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="UpdateFiche" method="post" action="/fiche/edit">
+            <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input id="editKm" name="editKm" type="text" class="form-control" placeholder="15" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Km</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="editRepas" name="editRepas" type="text" class="form-control" placeholder="9" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Repas</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="editNuite" name="editNuite" type="text" class="form-control" placeholder="9" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Nuite</span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input id="editEtat" name="editEtat" type="text" class="form-control" placeholder="Remboursée" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Etat</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="save">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <!-- Modal create Ligne-->
@@ -90,22 +131,18 @@ use App\Controllers\FicheFraisController;
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createRoleModalLabel">Create Role</h5>
+                <h5 class="modal-title" id="createLigneModalLabel">Create Ligne</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="InsertRole" method="post" action="/role/add">
+            <form id="InsertLigne" method="post" action="/ligne/add">
                 <div class="modal-body">
                     <div class="input-group mb-3">
-                        <input id="addId" name="addId" type="text" class="form-control" placeholder="4" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Id</span>
+                        <input id="addLibelle" name="addLibelle" type="text" class="form-control" placeholder="Telephone" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Libelle</span>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="addRole" name="addRole" type="text" class="form-control" placeholder="admin" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Role</span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="addPermission" name="addPermission" type="text" class="form-control" placeholder="00001111" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Permission</span>
+                        <input id="addPrix" name="addPrix" type="text" class="form-control" placeholder="15" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Prix</span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -118,27 +155,23 @@ use App\Controllers\FicheFraisController;
 </div>
 
 
-<!-- Modal edit Role-->
-<div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+<!-- Modal edit Ligne-->
+<div class="modal fade" id="editLigneModal" tabindex="-1" aria-labelledby="editLigneModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createRoleModalLabel">Edit</h5>
+                <h5 class="modal-title" id="createLigneModalLabel">Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="UpdateRole" method="post" action="/role/edit">
+            <form id="UpdateLigne" method="post" action="/ligne/edit">
             <div class="modal-body">
                     <div class="input-group mb-3">
-                        <input id="editId" name="editId" type="text" class="form-control" placeholder="4" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Id</span>
+                        <input id="editLibelle" name="editLibelle" type="text" class="form-control" placeholder="Telephone" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Libelle</span>
                     </div>
                     <div class="input-group mb-3">
-                        <input id="editRole" name="editRole" type="text" class="form-control" placeholder="admin" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Role</span>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="editPermission" name="editPermission" type="text" class="form-control" placeholder="00001111" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="input-group-text" id="basic-addon2">Permission</span>
+                        <input id="editPrix" name="editPrix" type="text" class="form-control" placeholder="15" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2">Prix</span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -151,21 +184,21 @@ use App\Controllers\FicheFraisController;
 </div>
 
 
-<!-- Modal confirmDelete Role-->
-<div class="modal fade" id="confirmDeleteRoleModal" tabindex="-1" aria-labelledby="confirmDeleteRoleModalLabel" aria-hidden="true">
+<!-- Modal confirmDelete Ligne-->
+<div class="modal fade" id="confirmDeleteLigneModal" tabindex="-1" aria-labelledby="confirmDeleteLigneModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteRoleModalLabel">Delete</h5>
+                <h5 class="modal-title" id="confirmDeleteLigneModalLabel">Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h3>Etes-vous sur de vouloir supprimé le Role <span id="wantToDelete"></span> ?</h3>
+                <h3>Etes-vous sur de vouloir supprimé la ligne <span id="wantToDelete"></span> ?</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NON</button>
-                <form id="DeleteRole" method="post" action="/role/delete">
-                    <input id="idRoleToDelete" name="idRoleToDelete" value="none" hidden>
+                <form id="DeleteLigne" method="post" action="/ligne/delete">
+                    <input id="idLigneToDelete" name="idLigneToDelete" value="none" hidden>
                     <button type="submit" class="btn btn-success">OUI</button>
                 </form>
             </div>
