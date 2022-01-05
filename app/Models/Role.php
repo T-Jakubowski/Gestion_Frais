@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
-    //protected $table = 'role';
-    protected $primaryKey = 'Identiant';
+    protected $table = 'role';
+    protected $primaryKey = 'Num';
     public $incrementing = true;
     protected $connection = 'mysql';
-    //protected $keyType = 'int';
+    protected $keyType = 'int';
 }

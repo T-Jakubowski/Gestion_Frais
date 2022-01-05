@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
-    //protected $table = 'user';
+    protected $table = 'user';
     protected $primaryKey = 'Identifiant';
     public $incrementing = false;
     protected $connection = 'mysql';
-    //protected $keyType = 'string';
+    protected $keyType = 'string';
 }

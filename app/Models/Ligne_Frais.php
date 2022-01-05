@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ligne_Frais extends Model
 {
     use HasFactory;
-    //protected $table = 'ligne_frais';
-    protected $primaryKey = 'Identiant';
+    protected $table = 'ligne_frais';
+    protected $primaryKey = 'Num';
     public $incrementing = false;
     protected $connection = 'mysql';
-    //protected $keyType = 'string';
+    protected $keyType = 'int';
 }
